@@ -254,13 +254,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         ]
         let credits = NSMutableAttributedString(
             string: String(
-                localized: "Keeps the Dock on the display you choose.", comment: "Description in the About panel.")
+                localized: "Lock your Dock.", comment: "Description in the About panel.")
                 + "\n\n",
             attributes: attributes)
-        let address = "https://github.com/oliveprhardman/lockthedock"
+        let address = "https://github.com/oliverphardman/lockthedock"
         credits.append(
             NSAttributedString(
-                string: "github.com/oliveprhardman/lockthedock",
+                string: "github.com/oliverphardman/lockthedock",
                 attributes: attributes.merging([.link: URL(string: address)!]) { _, new in new }))
         NSApp.orderFrontStandardAboutPanel(options: [.credits: credits])
     }
