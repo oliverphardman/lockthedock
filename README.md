@@ -12,7 +12,7 @@ Just Lock The Dock.
 
 # Install
 
-Go to the [Releases](/releases) page to grab the latest.
+Go to the [Releases](../../releases) page to grab the latest.
 
 # Contributing
 
