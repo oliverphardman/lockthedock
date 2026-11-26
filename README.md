@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="resources/artwork/icon.png" alt="Lock The Dock icon" width="512" height="512">
+  <img src="resources/artwork/icon.png" alt="Lock The Dock icon" width="256" height="256">
 </p>
 
 # Lock The Dock
