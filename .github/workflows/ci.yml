@@ -1,0 +1,58 @@
+name: Continuous Integration
+
+on:
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    name: Format and lint
+    runs-on: xcode-27
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        name: Checkout
+
+      - name: swift-format
+        run: xcrun swift-format lint --strict --recursive src tests
+
+      - name: Property lists and string catalog
+        run: |
+          plutil -lint resources/Info.plist LockTheDock.xcodeproj/project.pbxproj
+          python3 -m json.tool resources/Localizable.xcstrings > /dev/null
+
+  test:
+    name: Test and build
+    runs-on: xcode-27
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        name: Checkout
+
+      - name: Show the Xcode version
+        run: xcodebuild -version
+
+      - name: Test
+        run: >
+          xcodebuild test
+          -project LockTheDock.xcodeproj
+          -scheme LockTheDock
+          -destination 'platform=macOS'
+          -derivedDataPath build
+          CODE_SIGN_IDENTITY=-
+          DEVELOPMENT_TEAM=
+
+      - name: Build (Release)
+        run: >
+          xcodebuild build
+          -project LockTheDock.xcodeproj
+          -scheme LockTheDock
+          -configuration Release
+          -destination 'generic/platform=macOS'
+          -derivedDataPath build
+          CODE_SIGN_IDENTITY=-
+          DEVELOPMENT_TEAM=

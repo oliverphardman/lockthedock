@@ -1,0 +1,93 @@
+name: Continuous Deployment
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Tag of an existing release to build, e.g. v0.2.0
+        required: true
+        type: string
+
+concurrency:
+  group: release-${{ inputs.tag || github.event.release.tag_name }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build and upload
+    runs-on: xcode-27
+    env:
+      TAG: ${{ inputs.tag || github.event.release.tag_name }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        name: Checkout
+        with:
+          ref: refs/tags/${{ env.TAG }}
+          persist-credentials: false
+
+      - name: Read the version from the tag
+        run: |
+          set -euo pipefail
+          version="${TAG#v}"
+          if ! [[ "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "::error::Expected a tag like v1.2.3, got '$TAG'"
+            exit 1
+          fi
+          echo "VERSION=$version" >> "$GITHUB_ENV"
+
+      - name: Test
+        run: >
+          xcodebuild test
+          -project LockTheDock.xcodeproj
+          -scheme LockTheDock
+          -destination 'platform=macOS'
+          -derivedDataPath build/test
+          CODE_SIGN_IDENTITY=-
+          DEVELOPMENT_TEAM=
+
+      - name: Build
+        run: >
+          xcodebuild build
+          -project LockTheDock.xcodeproj
+          -scheme LockTheDock
+          -configuration Release
+          -destination 'generic/platform=macOS'
+          -derivedDataPath build/release
+          MARKETING_VERSION="$VERSION"
+          CURRENT_PROJECT_VERSION="$GITHUB_RUN_NUMBER"
+          CODE_SIGN_IDENTITY=-
+          DEVELOPMENT_TEAM=
+          CODE_SIGN_INJECT_BASE_ENTITLEMENTS=NO
+
+      - name: Package
+        run: |
+          set -euo pipefail
+          app="build/release/Build/Products/Release/Lock The Dock.app"
+          codesign --verify --strict --verbose "$app"
+          built="$(plutil -extract CFBundleShortVersionString raw "$app/Contents/Info.plist")"
+          if [ "$built" != "$VERSION" ]; then
+            echo "::error::Built version $built does not match tag $TAG"
+            exit 1
+          fi
+          mkdir -p dist
+          name="Lock-The-Dock-$VERSION.zip"
+          ditto -c -k --sequesterRsrc --keepParent "$app" "dist/$name"
+          (cd dist && shasum -a 256 "$name" > "$name.sha256")
+
+      - name: Mint a token for the app
+        id: app-token
+        uses: actions/create-github-app-token@f418cff399f7aef4c2f0ad47e25ca7a6abbdd6fc # v3.4.0
+        with:
+          client-id: ${{ vars.RELEASE_PLEASE_APP_CLIENT_ID }}
+          private-key: ${{ secrets.RELEASE_PLEASE_APP_PRIVATE_KEY }}
+          permission-contents: write
+
+      - name: Attach to the release
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: gh release upload "$TAG" dist/* --clobber

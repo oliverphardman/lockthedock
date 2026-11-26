@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="452.35" height="516.97" viewBox="330 213 364 416">
+  <!-- Shackle -->
+  <path d="M400 424V354A112 112 0 0 1 624 354V424" fill="none" stroke="#ffffff" stroke-width="58"/>
+  <!-- Body, with the keyhole cut out of it. -->
+  <path fill="#ffffff" fill-rule="evenodd" d="
+    M385 359H639A55 55 0 0 1 694 414V574A55 55 0 0 1 639 629H385A55 55 0 0 1 330 574V414A55 55 0 0 1 385 359Z
+    M493 504.2A40 40 0 1 1 531 504.2V550A19 19 0 0 1 493 550Z"/>
+</svg>

@@ -6,7 +6,7 @@ body:
     id: area
     attributes:
       label: Area
-      options: [API, Web, Android, Infrastructure, CI/CD, Other]
+      options: [macOS App]
     validations:
       required: true
   - type: textarea

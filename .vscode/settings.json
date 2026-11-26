@@ -1,27 +1,19 @@
 {
 	"editor.formatOnSave": true,
-	"editor.defaultFormatter": "esbenp.prettier-vscode",
-	"prettier.configPath": ".prettierrc",
-	"terraform.experimentalFeatures.validateOnSave": true,
-	"terraform.experimentalFeatures.prefillRequiredFields": false,
-	"terraform.validation.enableEnhancedValidation": false,
-	"[typescript]": {
-		"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"[swift]": {
+		"editor.defaultFormatter": "swiftlang.swift-vscode",
 		"editor.formatOnSave": true,
-		"editor.codeActionsOnSave": {
-			"source.organizeImports": "explicit",
-			"source.removeUnusedImports": "explicit",
-			"source.fixAll": "explicit"
-		}
+		"editor.tabSize": 4,
+		"editor.rulers": [
+			120
+		]
 	},
-	"[typescriptreact]": {
-		"editor.defaultFormatter": "esbenp.prettier-vscode",
-		"editor.formatOnSave": true,
-		"editor.codeActionsOnSave": {
-			"source.organizeImports": "explicit",
-			"source.removeUnusedImports": "explicit",
-			"source.fixAll": "explicit"
-		}
+	"[json]": {
+		"editor.defaultFormatter": "vscode.json-language-features",
+		"editor.formatOnSave": false
+	},
+	"[jsonc]": {
+		"editor.defaultFormatter": "vscode.json-language-features"
 	},
 	"[shellscript]": {
 		"editor.defaultFormatter": "foxundermoon.shell-format"
@@ -29,17 +21,12 @@
 	"[ignore]": {
 		"editor.defaultFormatter": "foxundermoon.shell-format"
 	},
-	"[terraform]": {
-		"editor.defaultFormatter": "hashicorp.terraform",
-		"editor.formatOnSave": true,
-		"editor.formatOnSaveMode": "file"
-	},
-	"[terraform-vars]": {
-		"editor.defaultFormatter": "hashicorp.terraform",
-		"editor.formatOnSave": true,
-		"editor.formatOnSaveMode": "file"
-	},
 	"[dotenv]": {
 		"editor.defaultFormatter": "foxundermoon.shell-format"
+	},
+	"files.associations": {
+		".swift-format": "json",
+		"*.xcstrings": "json",
+		".githooks/*": "shellscript"
 	}
 }

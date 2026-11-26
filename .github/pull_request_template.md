@@ -12,9 +12,8 @@
 
 ## Checklist
 
-- [ ] PR title follows [Conventional Commits](https://www.conventionalcommits.org) (e.g. `feat(api): add health endpoint`)
+- [ ] PR title follows [Conventional Commits](https://www.conventionalcommits.org) (e.g. `feat: add display labels`)
 - [ ] Tests added or updated
 - [ ] Docs updated where needed
 - [ ] No secrets or credentials committed
 - [ ] Breaking changes are marked with `!` or a `BREAKING CHANGE:` footer
-- [ ] Infrastructure changes reviewed with `terraform plan` (if applicable)

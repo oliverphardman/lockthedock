@@ -1,0 +1,55 @@
+{
+  "fill" : {
+    "linear-gradient" : [
+      "display-p3:0.34944,0.52729,0.91962,1.00000",
+      "display-p3:0.15609,0.23472,0.41913,1.00000"
+    ]
+  },
+  "groups" : [
+    {
+      "layers" : [
+        {
+          "blend-mode" : "normal",
+          "fill" : "none",
+          "glass" : true,
+          "image-name" : "padlock.svg",
+          "name" : "Padlock",
+          "position" : {
+            "scale" : 1.25,
+            "translation-in-points" : [
+              0.0007812500000454747,
+              -76
+            ]
+          }
+        },
+        {
+          "glass" : false,
+          "image-name" : "dock.svg",
+          "name" : "Dock",
+          "position" : {
+            "scale" : 0.75,
+            "translation-in-points" : [
+              5.684341886080802e-14,
+              379
+            ]
+          }
+        }
+      ],
+      "shadow" : {
+        "kind" : "none",
+        "opacity" : 0.5
+      },
+      "specular" : false,
+      "translucency" : {
+        "enabled" : false,
+        "value" : 0.5
+      }
+    }
+  ],
+  "supported-platforms" : {
+    "circles" : [
+      "watchOS"
+    ],
+    "squares" : "shared"
+  }
+}
