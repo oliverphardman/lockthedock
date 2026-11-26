@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="resources/artwork/icon.png" alt="Lock The Dock icon" width="512" height="512">
+</p>
+
 # Lock The Dock
 
 This is a macOS app that shouldn't have to exist, but unfortunately, here it is.
@@ -8,7 +12,7 @@ Just Lock The Dock.
 
 # Install
 
-Go to the [Releases](/releases) page to grab the latest!
+Go to the [Releases](/releases) page to grab the latest.
 
 # Contributing
 
