@@ -131,15 +131,15 @@ The workflows are in `.github/workflows/`.
 | `ci.yml` | On pull requests | Runs `swift-format`, validates the property list, project file and string catalog, tests and makes a Release build |
 | `codeql.yml` | On pushes and pull requests to `main`, weekly, or manually | Scans the Swift code and workflows with CodeQL. Swift is built with Xcode 26, which CodeQL supports |
 | `release-please.yml` | On pushes to `main`, or manually | Opens release pull requests and creates releases |
-| `cd.yml` | On published releases, or manually | Tests and builds the app, and attaches it to the release |
+| `cd.yml` | Called by `release-please.yml` for a new release, or manually | Tests and builds the app, attaches it to the draft release and publishes it |
 
 Dependabot checks for GitHub Actions updates weekly. Actions are pinned to commit SHAs, with the version in a comment; keep that format when adding one.
 
 ## Releases
 
-[release-please](https://github.com/googleapis/release-please) opens a release pull request from the commits on `main`, updating `CHANGELOG.md`. Don't edit that file by hand. Merging the pull request creates a tagged GitHub release, and `cd.yml` builds the app and attaches it. The version comes from the tag.
+[release-please](https://github.com/googleapis/release-please) opens a release pull request from the commits on `main`, updating `CHANGELOG.md`. Don't edit that file by hand. Merging the pull request creates a tag and a draft GitHub release. `cd.yml` then builds the app, attaches it and publishes the release. The version comes from the tag.
 
-To rebuild an existing release, run `cd.yml` manually with its tag.
+Published releases are immutable, so their files can't be changed. If the build fails and the release is still a draft, run `cd.yml` manually with its tag.
 
 Both release workflows use a GitHub App, configured with the `RELEASE_PLEASE_APP_CLIENT_ID` variable and the `RELEASE_PLEASE_APP_PRIVATE_KEY` secret. `cd.yml` can't upload without it.
 
