@@ -62,7 +62,7 @@ jobs:
           xcodebuild build
           -project LockTheDock.xcodeproj
           -scheme LockTheDock
-          -destination 'platform=macOS,arch=arm64'
+          -destination 'generic/platform=macOS'
           -derivedDataPath build
           ARCHS=arm64
           CODE_SIGNING_ALLOWED=NO
