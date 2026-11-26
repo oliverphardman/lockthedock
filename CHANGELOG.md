@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.1](https://github.com/oliverphardman/lockthedock/compare/v0.1.0...v0.1.1) (2026-11-26)
+
+
+### Fixes
+
+* correct GitHub URL in About ([afe2613](https://github.com/oliverphardman/lockthedock/commit/afe26139b59045cbdd6b212669ca262db470c87c))
+
 ## 0.1.0 (2026-11-26)
 
 
